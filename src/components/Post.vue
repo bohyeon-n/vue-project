@@ -2,17 +2,19 @@
   <div >
     <joinPopup-component :closePopup="closePopup"></joinPopup-component>
     <div class="post">
-      <div class="post__title">
-        {{detail.title}}
+      <div class="post-box">
+        <div class="post__title">
+          {{detail.title}}
+        </div>
+        <div class="post__email-and-date">
+          <span>{{detail.email}}</span>
+          <span>{{detail.updated_at}}</span>
+        </div>
+        <div class="post__content">
+          {{detail.contents}}
+        </div>
+        <div class="comment-count">댓글:{{comments.length}}</div>
       </div>
-      <div class="post__email-and-date">
-        <span>{{detail.email}}</span>
-        <span>{{detail.updated_at}}</span>
-      </div>
-      <div class="post__content">
-        {{detail.contents}}
-      </div>
-      <div class="comment-count">댓글:{{comments.length}}</div>
     </div>
     <div class="comment">
       <div v-if="comments.length > 0">
@@ -64,9 +66,18 @@ export default {
 }
 </script>
 <style lang="less">
+@desktop: ~'only screen and (min-width: 960px)';
+@tablet: ~'only screen and (min-width: 720px) and (max-width: 959px)';
+@mobile: ~'only screen and (max-width: 480px)';
 .post {
   background: #fff;
   padding: 1rem;
+  .post-box {
+    @media @desktop {
+      width: 70%;
+      margin: auto;
+    }
+  }
 
   &__title {
     font-weight: 900;
@@ -95,5 +106,11 @@ export default {
 .comment-message {
   padding: 1rem;
   height: 10rem;
+}
+.comment {
+  @media @desktop {
+    width: 70%;
+    margin: auto;
+  }
 }
 </style>
