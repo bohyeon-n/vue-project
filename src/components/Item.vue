@@ -60,7 +60,7 @@ export default {
   border: 1px solid #e0e0e0;
   &__header {
     display: flex;
-    justify-content: space-between;
+    justify-content: space-betwween;
     border-bottom: 1px solid black;
     padding: 0.5rem;
     .category-name {

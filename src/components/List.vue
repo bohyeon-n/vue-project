@@ -111,7 +111,7 @@ export default {
     }
   },
   mounted() {
-    this.init()
+    this.init(this.order)
   },
   beforeMount() {
     window.addEventListener('scroll', this.handleScroll)
