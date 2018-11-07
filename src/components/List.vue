@@ -4,7 +4,7 @@
       <modal-component :closeModal="closeModal" :categories="categories" :filtering="filtering"></modal-component>
     </div>
     <div class="list-header">
-      <button type="button" class="btn btn-primary" data-toggle="button" aria-pressed="false" autocomplete="off"
+      <button type="button" class="btn " data-toggle="button" aria-pressed="false" autocomplete="off"
         v-on:click="modal=true"
       >
          필터
@@ -13,16 +13,12 @@
         <div class="btn" v-bind:class="{active: order === 'asc'}" v-on:click="order='asc';init('asc')">오름차순</div>
         <div class="btn" v-bind:class="{active: order === 'desc'}" v-on:click="order='desc';init('desc')">내림차순</div>
       </div>
-
-     </div>
-     <div 
-      v-for="(post, index) in posts"
-      :key="post.no"
-     >
-     <div v-if='index % 3 === 0 && index !== 0 && ads[(index/3) -1]'>
-       <ad-component :ad='ads[(index/3) -1 ]'></ad-component>
-     </div>
-     <item-component :post='post' v-bind:categoryName="categories[post.category_no -1].name"></item-component>
+    </div>
+     <div v-for="(post, index) in posts" :key="post.no">
+      <div v-if='index % 3 === 0 && index !== 0 && ads[(index/3) -1]'>
+        <ad-component :ad='ads[(index/3) -1 ]'></ad-component>
+      </div>
+      <item-component :post='post' v-bind:categoryName="categories[post.category_no -1].name"></item-component>
     </div>
   </div>
 </template>
@@ -125,6 +121,7 @@ export default {
   display: flex;
   flex-direction: columns;
   justify-content: space-between;
+  padding-bottom: 1rem;
   .order {
     .btn {
       &.active {
