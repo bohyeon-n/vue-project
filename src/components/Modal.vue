@@ -12,7 +12,7 @@
       </div>
       <div class="modal-body">
         <div class="btn-group" id="filterCategory" data-toggle="buttons" v-for="category in this.$props.categories" :key="category.no">
-          <label class="btn btn-primary">
+          <label class="btn">
             <input type="radio" name="toggle" v-bind:id="'option-'+category.no"
              autocomplete="off"
              v-bind:value="category.no"
@@ -38,7 +38,7 @@ export default {
     saveCategory: function() {
       this.$props.closeModal()
       const category = $('#filterCategory input[name=toggle]:checked').val()
-      this.$props.filtering(category)
+      category && this.$props.filtering(category)
     }
   },
   data() {
@@ -53,9 +53,10 @@ export default {
 }
 </script >
 
+</style>
 <style lang="less" scoped>
-@modal-background: rgba(0, 0, 0, 0.7);
 .modal {
-  background: @modal-background;
+  background: rgba(0, 0, 0, 0.7);
 }
 </style>
+
