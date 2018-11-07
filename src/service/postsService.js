@@ -1,6 +1,6 @@
 import axios from 'axios'
 export function getPosts(page, order, category) {
-  if (category) {
+  if (category !== null) {
     return getFilteredPosts(page, category, order)
   } else {
     return axios.get(

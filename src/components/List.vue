@@ -90,7 +90,7 @@ export default {
     getMorePosts: async function() {
       const morePosts =
         this.category === null
-          ? await getPosts(++this.postPage, this.order, category)
+          ? await getPosts(++this.postPage, this.order, this.category)
           : await getFilteredPosts(++this.postPage, this.category, this.order)
       this.posts = [...this.posts, ...morePosts.data.list]
       this.isNeedMoreAds() && this.getMoreAds()
