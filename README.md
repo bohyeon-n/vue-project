@@ -75,7 +75,7 @@ For a detailed explanation on how things work, check out the [guide](http://vuej
 
 ```js 
 init: function(order) {
-      axios.all([getPosts(1, order), getAds(1, 10), getCategory()]).then(
+      axios.all([getPosts(1, order,this.category), getAds(1, 10), getCategory()]).then(
         axios.spread((postsRt, adsRt, categoryRt) => {
           this.ads = adsRt.data.list
           this.posts = postsRt.data.list
@@ -108,7 +108,7 @@ isNeedMoreAds: function() {
 getMorePosts: async function() {
     const morePosts =
     this.category === null
-      ? await getPosts(++this.postPage, this.order)
+      ? await getPosts(++this.postPage, this.order, this.category)
       : await getFilteredPosts(++this.postPag, this.category,this.order)
   this.posts = [...this.posts, ...morePosts.data.list]
   this.isNeedMoreAds() && this.getMoreAds()
@@ -128,6 +128,8 @@ vue를 잘 알지 못하고 작업을 하려다 보니 체계적으로 개발하
 각각 컴포넌트에서 style 태그를 사용하여 스타일링을 하였더니 scope 옵션을 추가하지 않으면 같은 이름의 클래스에서 영향을 받아 scoped를 추가하였다. 처음에는 영향을 받지 않았는데 영향을 주는 컴포넌트가 마운트 된 후에는 영향을 받았다. 아직 vue가 어떻게 동작하는 지에 대한 이해가 부족한 것 같다.  css style을 컴포넌트마다 작성하는 것도 해당 컴포넌트에만 영향을 줄 수 있어서 좋은 점도 있지만 관리하기 불편하고 중복되는 코드가 많다는 점에서 다음에는 css를 하나의 파일에 작성하여 적용하면 좋을 것 같다. 
 
 컴포넌트가 마운트 되었을 때 포스트와 광고를 불러오는 작업을 동기식으로 하였더니 에러가 발생하여 비동기식으로 수정하였다. 로더를 추가하여 통신이 완료되기 전에는 컴포넌트를 로딩하지 않는 로직을 추가하여 개선할 수 있을 것 같다. 
+
+필터링 상태와 오름차순, 내림차순으로 정렬하려다 보니, 처음에는 생각지 못했던 에러가 발생하여 어려 번 수정하게 되었다.
 
 반응형 웹을 최소한 대응을 하였지만 아직 부족한 점이 많은 것 같다. 더 공부를 해야할 것 같다. 디자인도 다시 수정해야 할 것 같다. 
 
