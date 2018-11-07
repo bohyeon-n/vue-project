@@ -39,7 +39,7 @@ export default {
   bottom: 0;
   background: #fff;
   text-align: center;
-  border: 1px solid black;
+  border: 1px solid #e0e0e0;
   &__message {
     margin-bottom: 1rem;
     @media @desktop {
