@@ -1,8 +1,11 @@
 import axios from 'axios'
-export function getPosts(page, order) {
-  return axios.get(
-    `http://comento.cafe24.com/request.php?page=${page}&ord=${order}`
-  )
+export function getPosts(page, order, category) {
+  if (category) {
+    return getFilteredPosts(page, category, order)
+  } else {
+    return axios.get(
+      `http://comento.cafe24.com/request.php?page=${page}&ord=${order}`)
+  }
 }
 export function getFilteredPosts(page, category, order) {
   return axios.get(`http://comento.cafe24.com/request.php?page=${page}&ord=${order}&category=${category}`)

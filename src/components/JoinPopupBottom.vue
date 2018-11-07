@@ -57,6 +57,7 @@ export default {
   }
   &__btn {
     button {
+      border: 1px solid #e0e0e0;
       &.join {
         background: @btn-color;
       }

@@ -4,11 +4,18 @@
       <modal-component :closeModal="closeModal" :categories="categories" :filtering="filtering"></modal-component>
     </div>
     <div class="list-header">
-      <button type="button" class="btn " data-toggle="button" aria-pressed="false" autocomplete="off"
-        v-on:click="modal=true"
-      >
-         필터
-      </button>
+      <div class="filter">
+        <button type="button" class="btn " data-toggle="button" aria-pressed="false" autocomplete="off"
+          v-on:click="modal=true"
+        >
+           필터
+        </button>
+        <div v-if="category">
+          <div class="category">
+            > {{categories[category-1].name}}
+          </div>
+        </div>
+      </div>
       <div class="order">
         <div class="btn" v-bind:class="{active: order === 'asc'}" v-on:click="order='asc';init('asc')">오름차순</div>
         <div class="btn" v-bind:class="{active: order === 'desc'}" v-on:click="order='desc';init('desc')">내림차순</div>
@@ -50,34 +57,40 @@ export default {
       categories: [],
       order: 'asc',
       modal: false,
-      postPage: 1,
+      postPage: 0,
       adPage: 1,
       category: null
     }
   },
   methods: {
     init: function(order) {
-      axios.all([getPosts(1, order), getAds(1, 10), getCategory()]).then(
-        axios.spread((postsRt, adsRt, categoryRt) => {
-          this.ads = adsRt.data.list
-          this.posts = postsRt.data.list
-          this.categories = categoryRt.data.list
-        })
-      )
+      axios
+        .all([getPosts(1, order, this.category), getAds(1, 10), getCategory()])
+        .then(
+          axios.spread((postsRt, adsRt, categoryRt) => {
+            this.ads = adsRt.data.list
+            this.posts = postsRt.data.list
+            this.categories = categoryRt.data.list
+          })
+        )
     },
 
     closeModal: function() {
       this.modal = false
     },
     filtering: async function(category) {
-      const filteredPosts = await getFilteredPosts(1, category, this.order)
+      const filteredPosts = await getFilteredPosts(
+        ++this.postPage,
+        category,
+        this.order
+      )
       this.posts = filteredPosts.data.list
       this.category = category
     },
     getMorePosts: async function() {
       const morePosts =
         this.category === null
-          ? await getPosts(++this.postPage, this.order)
+          ? await getPosts(++this.postPage, this.order, category)
           : await getFilteredPosts(++this.postPage, this.category, this.order)
       this.posts = [...this.posts, ...morePosts.data.list]
       this.isNeedMoreAds() && this.getMoreAds()
@@ -122,10 +135,16 @@ export default {
   flex-direction: columns;
   justify-content: space-between;
   padding-bottom: 1rem;
+  .filter {
+    display: flex;
+  }
   .order {
     .btn {
+      color: gray;
       &.active {
-        color: red;
+        font-weight: 700;
+        color: black;
+        text-decoration-line: underline;
       }
     }
   }
