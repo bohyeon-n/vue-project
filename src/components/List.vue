@@ -12,7 +12,7 @@
         </button>
         <div v-if="category">
           <div class="category">
-            > {{categories[category-1].name}}
+             > {{categories[category-1].name}}
           </div>
         </div>
       </div>
@@ -137,6 +137,12 @@ export default {
   padding-bottom: 1rem;
   .filter {
     display: flex;
+
+    line-height: 2rem;
+    .category {
+      padding-left: 1rem;
+      color: gray;
+    }
   }
   .order {
     .btn {
