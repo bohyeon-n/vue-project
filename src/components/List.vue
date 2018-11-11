@@ -112,9 +112,10 @@ export default {
   },
   mounted() {
     this.init(this.order)
-  },
-  beforeMount() {
     window.addEventListener('scroll', this.handleScroll)
+  },
+  destroyed() {
+    window.removeEventListener('scroll', this.handleScroll)
   }
 }
 </script>
