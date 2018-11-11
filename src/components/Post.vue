@@ -58,11 +58,12 @@ export default {
       popupActive: true
     }
   },
-  async mounted() {
+  async created() {
     const postRes = await getPostDetail(this.$route.params.id)
     this.detail = postRes.data.detail.article
     this.comments = postRes.data.detail.replies
-  }
+  },
+  async mounted() {}
 }
 </script>
 <style lang="less">
