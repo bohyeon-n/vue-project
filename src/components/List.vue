@@ -110,8 +110,10 @@ export default {
       }
     }
   },
-  mounted() {
+  created() {
     this.init(this.order)
+  },
+  mounted() {
     window.addEventListener('scroll', this.handleScroll)
   },
   destroyed() {
